@@ -60,17 +60,17 @@ func handleCompletions(c *gin.Context, body *bytes.Buffer) {
 	}
 
 	if msg == "" {
-		fmt.Println("---")
 		return
 	}
 	result := strings.SplitN(msg, cursor, 2)
-	prefix := result[0]
+	prefix := strings.TrimSpace(result[0])
 	suffix := result[1]
-	prompt := fmt.Sprintf("!FCPREFIX!%s!FCSUFFIX!%s!FCMIDDLE!", prefix, suffix)
 
+	prompt := fmt.Sprintf("!FCPREFIX!%s!FCSUFFIX!%s!FCMIDDLE!", prefix, suffix)
 	payload := map[string]any{
 		"inputs": prompt,
 	}
+
 	payloadJSON, _ := json.Marshal(payload)
 
 	url := fmt.Sprintf("%s/%s?ide=%s&v=%s", completionURL, DefaultKey.APIKey, IdeName, PluginVersion)
