@@ -1,4 +1,4 @@
-module fc
+module fcode
 
 go 1.25.4
 

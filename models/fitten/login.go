@@ -1,8 +1,9 @@
-package main
+package fitten
 
 import (
 	"bytes"
 	"encoding/json"
+	"fcode/cnf"
 	"fmt"
 	"io"
 	"net/http"
@@ -15,11 +16,11 @@ const (
 	ficoTokenURL = "https://fc.fittenlab.cn/codeuser/get_ft_token"
 )
 
-func Login() string {
+func Login(model *cnf.AIModel) string {
 	client := &http.Client{Timeout: 10 * time.Second}
 
 	// Step 1: Login to get user token
-	loginData := map[string]string{"username": DefaultConf.UserName, "password": DefaultConf.Password}
+	loginData := map[string]string{"username": model.Username, "password": model.Password}
 	jsonData, _ := json.Marshal(loginData)
 	req, _ := http.NewRequest("POST", loginURL, bytes.NewBuffer(jsonData))
 	req.Header.Set("Content-Type", "application/json")
@@ -68,8 +69,7 @@ func Login() string {
 		} `json:"data"`
 	}
 	json.NewDecoder(resp2.Body).Decode(&ficoResp)
+	cnf.DefaultConf.SetApiKey(model.Name, ficoResp.Data.FicoToken)
 
-	DefaultKey.APIKey = ficoResp.Data.FicoToken
-	DefaultKey.Save()
-	return DefaultKey.APIKey
+	return ficoResp.Data.FicoToken
 }

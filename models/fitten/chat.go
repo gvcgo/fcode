@@ -1,4 +1,4 @@
-package main
+package fitten
 
 import (
 	"bufio"
@@ -40,7 +40,7 @@ func prepareInput(msgs ...Msg) string {
 	return strings.Join(fcodeMsgs, "\n")
 }
 
-func handleChat(c *gin.Context, body *bytes.Buffer) {
+func handleChat(c *gin.Context, body *bytes.Buffer, apiKey string) {
 	req := &LspAIReq{}
 	err := json.NewDecoder(body).Decode(req)
 	if err != nil {
@@ -54,12 +54,12 @@ func handleChat(c *gin.Context, body *bytes.Buffer) {
 	inputs := prepareInput(req.Messages...)
 
 	payload := map[string]any{
-		"ft_token": DefaultKey.APIKey,
+		"ft_token": apiKey,
 		"inputs":   inputs,
 	}
 	payloadJSON, _ := json.Marshal(payload)
 
-	url := fmt.Sprintf("%s?ide=%s&show_shortcut=0&apikey=%s", chatUrl, IdeName, DefaultKey.APIKey)
+	url := fmt.Sprintf("%s?ide=%s&show_shortcut=0&apikey=%s", chatUrl, IdeName, apiKey)
 	resp, err := http.Post(url, "application/json", bytes.NewReader(payloadJSON))
 	if err != nil {
 		fmt.Println(err)

@@ -1,8 +1,9 @@
-package main
+package fitten
 
 import (
 	"bytes"
 	"encoding/json"
+	"fcode/cnf"
 	"fmt"
 	"io"
 	"net/http"
@@ -16,7 +17,24 @@ const (
 	completionURL = "https://fc.fittenlab.cn/codeapi/completion/generate_one_stage/"
 )
 
-func handleAll(c *gin.Context) {
+func HandleAll(c *gin.Context) {
+	mm, ok := c.Get(cnf.ModelCtxKey)
+	if !ok {
+		fmt.Println("no ai model found")
+		return
+	}
+
+	model, ok := mm.(*cnf.AIModel)
+	if !ok {
+		fmt.Println("invalid ai model")
+		return
+	}
+
+	apiKey := model.Key
+	if apiKey == "" {
+		apiKey = Login(model)
+	}
+
 	content, err := io.ReadAll(c.Request.Body)
 	if err != nil {
 		fmt.Println(err)
@@ -25,14 +43,14 @@ func handleAll(c *gin.Context) {
 
 	reqStr := string(content)
 	body := bytes.NewBuffer(content)
-	if strings.Contains(reqStr, DefaultConf.Cursor) {
-		handleCompletions(c, body)
+	if strings.Contains(reqStr, cnf.DefaultConf.GetCursor()) {
+		handleCompletions(c, body, apiKey)
 	} else {
-		handleChat(c, body)
+		handleChat(c, body, apiKey)
 	}
 }
 
-func handleCompletions(c *gin.Context, body *bytes.Buffer) {
+func handleCompletions(c *gin.Context, body *bytes.Buffer, apiKey string) {
 	req := &LspAIReq{}
 	err := json.NewDecoder(body).Decode(req)
 	if err != nil {
@@ -44,7 +62,7 @@ func handleCompletions(c *gin.Context, body *bytes.Buffer) {
 	}
 
 	var msg string
-	cursor := DefaultConf.GetCursor()
+	cursor := cnf.DefaultConf.GetCursor()
 	if cursor == "" {
 		fmt.Println("no cursor specified!")
 		os.Exit(1)
@@ -73,7 +91,7 @@ func handleCompletions(c *gin.Context, body *bytes.Buffer) {
 
 	payloadJSON, _ := json.Marshal(payload)
 
-	url := fmt.Sprintf("%s/%s?ide=%s&v=%s", completionURL, DefaultKey.APIKey, IdeName, PluginVersion)
+	url := fmt.Sprintf("%s/%s?ide=%s&v=%s", completionURL, apiKey, IdeName, PluginVersion)
 	resp, err := http.Post(url, "application/json", bytes.NewReader(payloadJSON))
 	if err != nil {
 		fmt.Println(err)

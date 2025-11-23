@@ -1,5 +1,7 @@
 package main
 
+import "fcode/models"
+
 func main() {
-	Serve()
+	models.Serve()
 }
