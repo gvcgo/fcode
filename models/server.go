@@ -26,11 +26,11 @@ func Serve() {
 	})
 
 	r.POST("/v1/choose/model", func(ctx *gin.Context) {
-		m := ctx.Query("model")
+		name := ctx.Query("model")
 
 		found := false
 		for _, mm := range cnf.DefaultConf.AIModels {
-			if mm.Name == m {
+			if mm.Name == name {
 				found = true
 				cnf.DefaultModel = mm
 				dm := &cnf.DefaultM{}
