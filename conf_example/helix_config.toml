@@ -1,0 +1,168 @@
+theme = "mydark"
+
+[editor]
+line-number = "relative"
+cursorline = true
+mouse = true
+bufferline = "always"
+end-of-line-diagnostics = "hint"
+auto-completion = true
+completion-replace = true
+preview-completion-insert = false
+path-completion = true
+completion-timeout = 1000
+auto-format = true
+auto-info = true
+
+[editor.file-picker]
+git-ignore = false
+ignore = false
+
+[editor.inline-diagnostics]
+cursor-line = "warning"
+
+[editor.cursor-shape]
+insert = "underline"
+normal = "block"
+select = "bar"
+
+[editor.statusline]
+left = ["mode", "total-line-numbers", "position", "version-control"]
+center = ["primary-selection-length", "read-only-indicator", "file-name", "file-modification-indicator"]
+right = ["spinner", "diagnostics", "workspace-diagnostics", "register", "file-type"]
+separator = "│"
+mode.normal = "NORMAL"
+mode.insert = "INSERT"
+mode.select = "SELECT"
+
+[editor.auto-pairs]
+'(' = ')'
+'{' = '}'
+'[' = ']'
+'"' = '"'
+'`' = '`'
+'<' = '>'
+
+[editor.auto-save]
+focus-lost = true
+
+[editor.lsp]
+display-progress-messages = true
+auto-signature-help = true
+display-inlay-hints = false
+display-signature-help-docs = true
+snippets = true
+goto-reference-include-declaration = true
+
+[editor.indent-guides]
+render = true
+skip-levels = 1
+
+[editor.gutters]
+layout = ["diagnostics", "spacer", "line-numbers", "spacer", "diff"]
+
+[keys.normal]
+tab = "move_parent_node_end"
+S-tab = "move_parent_node_start"
+C-s = ":w"
+C-p = ':sh echo "$(pwd)/%{buffer_name}" | pbcopy'
+C-b = ":sh git blame -L %{cursor_line},%{cursor_line} %{buffer_name}"
+C-c = ":sh git blame -L %{cursor_line},%{cursor_line} %{buffer_name} | awk '{print $1}' | pbcopy"
+C-x = ":bc!"
+C-i = "code_action"
+H = "goto_next_paragraph"
+L = "goto_prev_paragraph"
+G = [
+  "move_next_sub_word_end",
+  "move_prev_sub_word_start"
+]
+# use lazygit
+C-l = [
+  ':insert-output lazygit',
+  ':redraw',
+  "undo"
+]
+A-h = "@maf<A-;>;"
+A-l = "@maf;"
+A-j = "@mam<A-;>;"
+A-k = "@mam;"
+
+[keys.normal."space"]
+h = [
+  ":e ~/tmp/chat-ai.md",
+  "select_all",
+  "delete_selection",
+  ":w",
+  ":bc!",
+  ":vsplit-new",
+  ":set-language markdown",
+  ":insert-output echo '!C 分析一下下面的代码变更有什么bug: '",
+  ":append-output default_branch=$(git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's@^refs/remotes/origin/@@') && git diff $default_branch...HEAD",
+  "select_all",
+  "yank",
+  ":buffer-close!",
+  ":e ~/tmp/chat-ai.md",
+  "paste_after",
+  ":w"
+]
+l = [
+  ":e ~/tmp/chat-ai.md",
+  "select_all",
+  "delete_selection",
+  ":w",
+  ":bc!",
+  ":vsplit-new",
+  ":set-language markdown",
+  ":insert-output echo '!C '",
+  "select_all",
+  'yank',
+  ":bc!",
+  ":e ~/tmp/chat-ai.md",
+  "paste_after",
+  ":w",
+  "goto_file_start",
+  "goto_line_end"
+]
+m = [
+  ":sh default_branch=$(git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's@^refs/remotes/origin/@@') && git diff $default_branch $(pwd)/%{buffer_name} | pbcopy",
+  ":e ~/tmp/chat-ai.md",
+  "select_all",
+  "delete_selection",
+  ":insert-output echo '!C 分析一下下面的代码变更有什么bug: '",
+  ":clipboard-paste-after",
+  ":w"
+]
+n = [
+  ":clipboard-yank",
+  ":e ~/tmp/chat-ai.md",
+  "select_all",
+  "delete_selection",
+  ":insert-output echo '!C 分析一下下面的代码: '",
+  ":clipboard-paste-after",
+  ":w"
+]
+v = [
+  "select_all",
+  ":pipe glow",
+  "goto_file_start"
+]
+z = [
+  ":sh fcode stop && fcode serve>/dev/null 2>&1 &"
+]
+
+[keys.insert]
+S-tab = "move_parent_node_start"
+C-j = "normal_mode"
+C-p = ':sh echo "$(pwd)/%{buffer_name}" | pbcopy'
+C-b = ":sh git blame -L %{cursor_line},%{cursor_line} %{buffer_name}"
+C-c = ":sh git blame -L %{cursor_line},%{cursor_line} %{buffer_name} | awk '{print $1}' | pbcopy"
+C-x = ":bc!"
+C-i = "code_action"
+C-f = "goto_next_paragraph"
+C-g = "goto_prev_paragraph"
+
+[keys.select]
+tab = "extend_parent_node_end"
+S-tab = "extend_parent_node_start"
+C-i = "code_action"
+
