@@ -102,7 +102,6 @@ var stop = &cobra.Command{
 	Example: "fcode stop",
 	Run: func(cmd *cobra.Command, args []string) {
 		url := fmt.Sprintf("http://localhost%s/v1/stop", cnf.DefaultConf.GetPort())
-		fmt.Println(url)
 		http.Post(url, "application/json", nil)
 	},
 }
