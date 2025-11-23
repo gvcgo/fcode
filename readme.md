@@ -22,7 +22,7 @@ touch conf.toml
 
 ## 安装
 ```bash
-go install github.com/moqsien/fcode@latest
+go install github.com/moqsien/fcode
 ```
 
 ## 开启本地服务
