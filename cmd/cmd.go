@@ -42,7 +42,11 @@ var list = &cobra.Command{
 			return
 		}
 		for _, m := range aiModels {
-			fmt.Println(m.Name)
+			if m.Name == cnf.DefaultModel.Name {
+				fmt.Println("**", m.Name)
+			} else {
+				fmt.Println(m.Name)
+			}
 		}
 	},
 }
