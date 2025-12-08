@@ -1,5 +1,5 @@
 ## 什么是fcode？
-- fcode是为[lsp-ai](https://github.com/SilasMarvin/lsp-ai)项目做的一个adapter，支持fitten code，以及其他兼容OpenAI接口的大模型API。例如，美团的LongCat，阿里的ModelScope(qwen)，OpenAI等等。
+- fcode是为[lsp-ai](https://github.com/SilasMarvin/lsp-ai)项目做的一个adapter，支持fitten code，以及其他兼容OpenAI接口的大模型API。例如，美团的LongCat，阿里的ModelScope(qwen)，google的gemini，OpenAI等等。
 
 ## fcode带来什么好处？
 - 原本不支持lsp-ai的fitten code可以在lsp-ai中使用。
@@ -12,6 +12,27 @@ mkdir -p ~/.fcode
 cd ~/.fcode
 touch conf.toml
 # 复制conf_example/conf.toml 内容到上述文件，并修改username, password, key等等。可以根据自己的情况增减大模型配置。
+```
+
+## fcode提供了哪些命令
+```bash
+fcode -h   
+Usage:
+   [command]
+
+Available Commands:
+  completion  Generate the autocompletion script for the specified shell
+  help        Help about any command
+  list        List available model names.
+  serve       Run server for lsp-ai.
+  show        Show config file path.
+  stop        Stop fcode server.
+  use         Use an available model.
+
+Flags:
+  -h, --help   help for this command
+
+Use " [command] --help" for more information about a command.
 ```
 
 ## 配置lsp-ai
