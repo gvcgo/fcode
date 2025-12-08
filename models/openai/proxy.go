@@ -5,11 +5,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/moqsien/fcode/cnf"
 	"io"
 	"net/http"
 	"net/http/httputil"
 	"net/url"
+	"strings"
+
+	"github.com/moqsien/fcode/cnf"
 
 	"github.com/gin-gonic/gin"
 )
@@ -63,7 +65,13 @@ func HandleAll(c *gin.Context) {
 			reqBody["model"] = model.Model
 		}
 
+		if strings.Contains(aiEndpoint.Host, "google") {
+			delete(reqBody, "frequency_penalty")
+			// delete(reqBody, "presence_penalty")
+		}
+
 		bodyBuffer, _ = json.Marshal(reqBody)
+		// fmt.Println("------> ", string(bodyBuffer))
 
 		originalDirector(r)
 		if len(bodyBuffer) > 0 {
@@ -99,6 +107,8 @@ func HandleAll(c *gin.Context) {
 		if err != nil {
 			return err
 		}
+		// fmt.Println(resp.StatusCode)
+		// fmt.Println("==> ", string(body))
 		resp.Body.Close()
 		resp.Header.Set("X-Proxy-Processed", "true")
 		resp.Body = io.NopCloser(bytes.NewBuffer(body))
