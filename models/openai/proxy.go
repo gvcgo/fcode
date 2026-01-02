@@ -11,7 +11,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/moqsien/fcode/cnf"
+	"github.com/gvcgo/fcode/cnf"
 
 	"github.com/gin-gonic/gin"
 )

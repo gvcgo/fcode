@@ -5,10 +5,10 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/moqsien/fcode/cnf"
-	"github.com/moqsien/fcode/models/cf"
-	"github.com/moqsien/fcode/models/fitten"
-	"github.com/moqsien/fcode/models/openai"
+	"github.com/gvcgo/fcode/cnf"
+	"github.com/gvcgo/fcode/models/cf"
+	"github.com/gvcgo/fcode/models/fitten"
+	"github.com/gvcgo/fcode/models/openai"
 
 	"github.com/gin-gonic/gin"
 )

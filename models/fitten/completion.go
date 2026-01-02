@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/moqsien/fcode/cnf"
+	"github.com/gvcgo/fcode/cnf"
 	"io"
 	"net/http"
 	"os"

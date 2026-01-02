@@ -1,4 +1,4 @@
-module github.com/moqsien/fcode
+module github.com/gvcgo/fcode
 
 go 1.25.4
 

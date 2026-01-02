@@ -9,7 +9,7 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"github.com/moqsien/fcode/cnf"
+	"github.com/gvcgo/fcode/cnf"
 )
 
 const (

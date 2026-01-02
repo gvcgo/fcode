@@ -1,4 +1,4 @@
-[中文](https://github.com/moqsien/fcode/blob/main/readme_cn.md)|[En](https://github.com/moqsien/fcode)
+[中文](https://github.com/gvcgo/fcode/blob/main/readme_cn.md)|[En](https://github.com/gvcgo/fcode)
 
 ## 什么是fcode？
 - fcode是为[lsp-ai](https://github.com/SilasMarvin/lsp-ai)项目做的一个adapter，支持fitten code，cloudflare AI workers，以及其他兼容OpenAI接口的大模型API。例如，美团的LongCat，阿里的ModelScope(qwen)，google的gemini，OpenAI等等。
@@ -47,7 +47,7 @@ Use " [command] --help" for more information about a command.
 
 ## 安装
 ```bash
-go install github.com/moqsien/fcode@latest
+go install github.com/gvcgo/fcode@latest
 ```
 
 ## 开启本地服务
@@ -58,7 +58,7 @@ fcode stop && fcode serve>/dev/null 2>&1 &
 ## Gallery
 - fitten code
 
-  ![fitten](https://github.com/moqsien/fcode/blob/main/imgs/lsp-ai_fitten.png)
+  ![fitten](https://github.com/gvcgo/fcode/blob/main/imgs/lsp-ai_fitten.png)
 
 - chat
-  ![chat](https://github.com/moqsien/fcode/blob/main/imgs/lsp-ai_chat.png)
+  ![chat](https://github.com/gvcgo/fcode/blob/main/imgs/lsp-ai_chat.png)

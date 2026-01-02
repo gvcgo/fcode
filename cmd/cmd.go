@@ -2,8 +2,8 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/moqsien/fcode/cnf"
-	"github.com/moqsien/fcode/models"
+	"github.com/gvcgo/fcode/cnf"
+	"github.com/gvcgo/fcode/models"
 	"io"
 	"net/http"
 
