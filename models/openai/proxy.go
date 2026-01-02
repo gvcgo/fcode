@@ -94,7 +94,7 @@ func HandleAll(c *gin.Context) {
 		}
 		// 设置本地代理
 		localProxy := c.GetString(cnf.ProxyCtxKey)
-		if localProxy != "" {
+		if localProxy != "" && model.UseProxy {
 			proxyURL, _ := url.Parse(localProxy)
 			transport := &http.Transport{
 				Proxy: http.ProxyURL(proxyURL),

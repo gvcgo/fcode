@@ -10,35 +10,33 @@ import (
 	"net/http/httputil"
 	"net/url"
 
-	"github.com/moqsien/fcode/cnf"
-
 	"github.com/gin-gonic/gin"
+	"github.com/moqsien/fcode/cnf"
 )
 
-type CFWorkersReq struct {
-	Messages any `json:"messages"`
+type CFOssReq struct {
+	Model        string `json:"model"`
+	Instructions string `json:"instructions"`
+	Input        any    `json:"input"`
 }
 
-type Resust struct {
-	Response string `json:"response"`
+type CFOssContent struct {
+	Text string `json:"text"`
+	Type string `json:"type"`
 }
 
-type CFWorkersResp struct {
-	Result  Resust `json:"result"`
-	Success bool   `json:"success"`
+type CFOssMsg struct {
+	Type     string         `json:"type"`
+	Role     string         `json:"role"`
+	Status   string         `json:"status"`
+	Contents []CFOssContent `json:"content"`
 }
 
-type roundTripperFunc func(*http.Request) (*http.Response, error)
-
-func (f roundTripperFunc) RoundTrip(req *http.Request) (*http.Response, error) {
-	return f(req)
+type CFOssResp struct {
+	CFOssMsgs []CFOssMsg `json:"output"`
 }
 
-const (
-	ReverseProxyErrCtxKey = "proxy_err_key"
-)
-
-func HandleAll(c *gin.Context) {
+func HandleCFgptOss(c *gin.Context) {
 	mm, ok := c.Get(cnf.ModelCtxKey)
 	if !ok {
 		fmt.Println("no model found")
@@ -70,12 +68,23 @@ func HandleAll(c *gin.Context) {
 			}
 		}
 
-		reqBody := map[string]any{}
+		reqBody := map[string][]cnf.Message{}
 		_ = json.Unmarshal(bodyBuffer, &reqBody)
-		messages := reqBody["messages"]
 
-		bodyBuffer, _ = json.Marshal(&CFWorkersReq{
-			Messages: messages,
+		messages := []cnf.Message{}
+		msgs := reqBody["messages"]
+		instructions := ""
+		for _, m := range msgs {
+			if m.Role == cnf.RoleSystem {
+				instructions = m.Content
+			} else {
+				messages = append(messages, m)
+			}
+		}
+		bodyBuffer, _ = json.Marshal(&CFOssReq{
+			Model:        model.Model,
+			Instructions: instructions,
+			Input:        messages,
 		})
 
 		originalDirector(r)
@@ -118,19 +127,31 @@ func HandleAll(c *gin.Context) {
 	}
 
 	reverseProxy.ModifyResponse = func(resp *http.Response) error {
-		result := &CFWorkersResp{}
+		result := &CFOssResp{}
 		err := json.NewDecoder(resp.Body).Decode(result)
 		if err != nil {
 			return err
 		}
 		resp.Body.Close()
 
+		var res *CFOssContent
+	OUTTER:
+		for _, o := range result.CFOssMsgs {
+			if o.Role == cnf.RoleAssistant {
+				for _, cc := range o.Contents {
+					if cc.Text != "" && cc.Type == "output_text" {
+						res = &cc
+						break OUTTER
+					}
+				}
+			}
+		}
 		lspAIResp := &cnf.CompResponse{
 			Choices: []cnf.Choice{
 				{
 					FinishReason: "stop",
 					Message: cnf.Message{
-						Content: result.Result.Response,
+						Content: res.Text,
 						Role:    cnf.RoleAssistant,
 					},
 				},

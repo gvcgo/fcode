@@ -56,3 +56,30 @@ key = 'xxxxxx'
 username = ''
 password = ''
 use_proxy=true
+
+[[models]]
+name = 'cfqwen'
+type = 'cf'
+api = 'https://api.cloudflare.com/client/v4/accounts/xxxx_account_id/ai/run/@cf/qwen/qwen2.5-coder-32b-instruct'
+model = 'qwen2.5-coder-32b-instruct'
+key = 'xxxxxx'
+username = ''
+password = ''
+
+[[models]]
+name = 'cfllama'
+type = 'cf'
+api = 'https://api.cloudflare.com/client/v4/accounts/xxxx_account_id/ai/run/@cf/meta/llama-3.3-70b-instruct-fp8-fast'
+model = 'llama-3.3-70b-instruct-fp8-fast '
+key = 'xxxxxx'
+username = ''
+password = ''
+
+[[models]]
+name = 'cfoss'
+type = 'cf2'
+api = 'https://api.cloudflare.com/client/v4/accounts/xxxx_account_id/ai/v1/responses'
+model = '@cf/openai/gpt-oss-120b'
+key = 'xxxxxx'
+username = ''
+password = ''

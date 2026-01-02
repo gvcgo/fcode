@@ -1,11 +1,14 @@
 package models
 
 import (
+	"fmt"
+	"net/http"
+	"os"
+
 	"github.com/moqsien/fcode/cnf"
+	"github.com/moqsien/fcode/models/cf"
 	"github.com/moqsien/fcode/models/fitten"
 	"github.com/moqsien/fcode/models/openai"
-	"net/http"
-	"strings"
 
 	"github.com/gin-gonic/gin"
 )
@@ -21,16 +24,24 @@ func Serve() {
 
 	r := gin.Default()
 
-	// r.Use(gin.Logger())
+	r.Use(gin.Logger())
 
 	r.POST("/v1/completions", func(c *gin.Context) {
 		c.Set(cnf.ModelCtxKey, cnf.DefaultModel)
 		c.Set(cnf.ProxyCtxKey, cnf.DefaultConf.Proxy)
 
-		if strings.HasPrefix(cnf.DefaultModel.Name, "fitten_code") {
-			fitten.HandleAll(c)
-		} else {
+		switch cnf.DefaultModel.Type {
+		case "open_ai":
 			openai.HandleAll(c)
+		case "fitten":
+			fitten.HandleAll(c)
+		case "cf":
+			cf.HandleAll(c)
+		case "cf2":
+			cf.HandleCFgptOss(c)
+		default:
+			fmt.Println("unspported model type")
+			os.Exit(1)
 		}
 	})
 

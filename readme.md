@@ -1,9 +1,10 @@
 ## 什么是fcode？
-- fcode是为[lsp-ai](https://github.com/SilasMarvin/lsp-ai)项目做的一个adapter，支持fitten code，以及其他兼容OpenAI接口的大模型API。例如，美团的LongCat，阿里的ModelScope(qwen)，google的gemini，OpenAI等等。
+- fcode是为[lsp-ai](https://github.com/SilasMarvin/lsp-ai)项目做的一个adapter，支持fitten code，cloudflare AI workers，以及其他兼容OpenAI接口的大模型API。例如，美团的LongCat，阿里的ModelScope(qwen)，google的gemini，OpenAI等等。
 
 ## fcode带来什么好处？
 - 原本不支持lsp-ai的fitten code可以在lsp-ai中使用。
-- 在不同的Model之间快速无缝切换。
+- 原本不支持的cloudflare AI workers也可以在lsp-ai中使用。
+- 在不同的Model/API之间快速无缝切换。
 
 ## 使用方法
 - 编辑配置文件

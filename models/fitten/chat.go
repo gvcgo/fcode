@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
+	"github.com/moqsien/fcode/cnf"
 )
 
 const (
@@ -29,9 +30,9 @@ func prepareInput(msgs ...Msg) string {
 		}
 
 		switch m.Role {
-		case RoleUser:
+		case cnf.RoleUser:
 			fcodeMsgs = append(fcodeMsgs, fmt.Sprintf(MsgUser, m.Content))
-		case RoleAssistant:
+		case cnf.RoleAssistant:
 			fcodeMsgs = append(fcodeMsgs, fmt.Sprintf(MsgAssistant, m.Content))
 		}
 	}
@@ -81,13 +82,13 @@ func handleChat(c *gin.Context, body *bytes.Buffer, apiKey string) {
 		result += d.Delta
 	}
 
-	lspAIResp := &CompResponse{
-		[]Choice{
+	lspAIResp := &cnf.CompResponse{
+		Choices: []cnf.Choice{
 			{
 				FinishReason: "stop",
-				Message: Message{
+				Message: cnf.Message{
 					Content: result,
-					Role:    RoleAssistant,
+					Role:    cnf.RoleAssistant,
 				},
 			},
 		},

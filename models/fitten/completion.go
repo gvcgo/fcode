@@ -69,7 +69,7 @@ func handleCompletions(c *gin.Context, body *bytes.Buffer, apiKey string) {
 	}
 
 	for _, m := range req.Messages {
-		if m.Role == RoleUser {
+		if m.Role == cnf.RoleUser {
 			if strings.Contains(m.Content, cursor) {
 				msg = m.Content
 				break
@@ -108,13 +108,13 @@ func handleCompletions(c *gin.Context, body *bytes.Buffer, apiKey string) {
 	comp := strings.ReplaceAll(r.GeneratedText, "<.endoftext.>", "")
 	comp = strings.ReplaceAll(comp, `<|endoftext|>`, "")
 
-	lspAIResp := &CompResponse{
-		[]Choice{
+	lspAIResp := &cnf.CompResponse{
+		Choices: []cnf.Choice{
 			{
 				FinishReason: "stop",
-				Message: Message{
+				Message: cnf.Message{
 					Content: comp,
-					Role:    RoleAssistant,
+					Role:    cnf.RoleAssistant,
 				},
 			},
 		},
