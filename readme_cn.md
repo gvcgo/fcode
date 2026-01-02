@@ -1,3 +1,5 @@
+[中文](https://github.com/moqsien/fcode/blob/main/readme_cn.md)|[En](https://github.com/moqsien/fcode)
+
 ## 什么是fcode？
 - fcode是为[lsp-ai](https://github.com/SilasMarvin/lsp-ai)项目做的一个adapter，支持fitten code，cloudflare AI workers，以及其他兼容OpenAI接口的大模型API。例如，美团的LongCat，阿里的ModelScope(qwen)，google的gemini，OpenAI等等。
 

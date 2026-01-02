@@ -1,3 +1,5 @@
+[中文](https://github.com/moqsien/fcode/blob/main/readme_cn.md)|[En](https://github.com/moqsien/fcode)
+
 ## What is fcode?
 - fcode is an adapter for the [lsp‑ai](https://github.com/SilasMarvin/lsp-ai) project. It supports Fitten Code, Cloudflare AI Workers, and other large‑model APIs compatible with the OpenAI interface, such as Meituan’s LongCat, Alibaba’s ModelScope (qwen), Google’s Gemini, OpenAI, etc.
 
