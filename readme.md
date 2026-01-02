@@ -1,22 +1,23 @@
-## 什么是fcode？
-- fcode是为[lsp-ai](https://github.com/SilasMarvin/lsp-ai)项目做的一个adapter，支持fitten code，cloudflare AI workers，以及其他兼容OpenAI接口的大模型API。例如，美团的LongCat，阿里的ModelScope(qwen)，google的gemini，OpenAI等等。
+## What is fcode?
+- fcode is an adapter for the [lsp‑ai](https://github.com/SilasMarvin/lsp-ai) project. It supports Fitten Code, Cloudflare AI Workers, and other large‑model APIs compatible with the OpenAI interface, such as Meituan’s LongCat, Alibaba’s ModelScope (qwen), Google’s Gemini, OpenAI, etc.
 
-## fcode带来什么好处？
-- 原本不支持lsp-ai的fitten code可以在lsp-ai中使用。
-- 原本不支持的cloudflare AI workers也可以在lsp-ai中使用。
-- 在不同的Model/API之间快速无缝切换。
-- 支持为单个模型设置本地代理(对于国内用户友好)
+## What benefits does fcode bring?
+- Fitten Code, which originally does not work with lsp‑ai, can now be used within lsp‑ai.
+- Cloudflare AI Workers, previously unsupported, can also be used with lsp‑ai.
+- Quickly and seamlessly switch between different models/APIs.
+- Allows setting a local proxy for individual models (friendly for users in mainland China).
 
-## 使用方法
-- 编辑配置文件
+## How to use
+- Edit the configuration file  
+
 ```bash
 mkdir -p ~/.fcode
 cd ~/.fcode
 touch conf.toml
-# 复制conf_example/conf.toml 内容到上述文件，并修改username, password, key等等。可以根据自己的情况增减大模型配置。
+# Copy the contents of conf_example/conf.toml into this file and modify username, password, key, etc. You can add or remove model configurations as needed.
 ```
 
-## fcode提供了哪些命令
+## Commands provided by fcode
 ```bash
 fcode -h   
 Usage:
@@ -37,26 +38,28 @@ Flags:
 Use " [command] --help" for more information about a command.
 ```
 
-## 配置lsp-ai
-- 以[helix editor](https://github.com/helix-editor/helix)为例
+## lsp‑ai conf
+- Example for the [Helix editor](https://github.com/helix-editor/helix)  
+
 ```text
-# 见conf_example/helix_languages.toml
+# See conf_example/helix_languages.toml
 ```
 
-## 安装
+## Installation
 ```bash
 go install github.com/moqsien/fcode@latest
 ```
 
-## 开启本地服务
+## Start the local service
 ```bash
 fcode stop && fcode serve>/dev/null 2>&1 &
 ```
 
 ## Gallery
-- fitten code
+- Fitten Code  
 
   ![fitten](https://github.com/moqsien/fcode/blob/main/imgs/lsp-ai_fitten.png)
 
-- chat
+- Chat  
+
   ![chat](https://github.com/moqsien/fcode/blob/main/imgs/lsp-ai_chat.png)
