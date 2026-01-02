@@ -4,7 +4,7 @@ proxy = "http://localhost:2023"
 
 [[models]]
 name = 'fitten_code'
-type = 'open_ai'
+type = 'fitten'
 api = ''
 model = ''
 key = ''
