@@ -5,6 +5,7 @@
 - 原本不支持lsp-ai的fitten code可以在lsp-ai中使用。
 - 原本不支持的cloudflare AI workers也可以在lsp-ai中使用。
 - 在不同的Model/API之间快速无缝切换。
+- 支持为单个模型设置本地代理(对于国内用户友好)
 
 ## 使用方法
 - 编辑配置文件
