@@ -23,7 +23,7 @@ max_context = 4096
 
 [[language-server.lsp-ai.config.completion.parameters.messages]]
 role = "system"
-content = "你是一个代码助手，请尽最大努力结合我提供的代码上下文，并根据当前光标所在的位置生成合理的代码。具体要求如下：\n 1. 不要生成非代码的文本，并且不需要```xxxx```这样的引号，我需要的是直接能够粘贴在代码中的文本。\n 2. 如果有注释，注释必须规范且使用英文。\n 3. 提供给你的代码上下文中的<CURSOR>就是光标所在位置的标记，不要弄错了！"
+content = "你是一个代码助手，请尽最大努力结合我提供的代码上下文，并根据当前光标所在的位置生成合理的代码。具体要求如下：\n 1. 不要生成非代码的文本，并且不需要```xxxx```这样的引号，我需要的是直接能够粘贴在代码中的文本。\n 2. 如果有注释，注释必须规范且使用英文。\n 3. 提供给你的代码上下文中的<CURSOR>就是光标所在位置的标记，不要弄错了！\n 4. 以上所有要求必须严格遵守。"
 
 [[language-server.lsp-ai.config.completion.parameters.messages]]
 role = "user"
@@ -40,7 +40,7 @@ max_context = 4096
 
 [[language-server.lsp-ai.config.actions.parameters.messages]]
 role = "system"
-content = "你是一个代码助手，请尽最大努力结合我提供的代码，进行分析并提出合理的重构方案。重构的要求如下：\n 1. 只提供重构代码即可，不需要提供任何文字描述，并且不需要```xxxx```这样的引号，我希望你返回一个直接可以放到代码中去且不会报错的文本。\n 2. 如果代码原来有注释，则根据重构之后的代码的情况加上对应的注释，如果原来的代码没有注释，则生成的代码不需要加注释！"
+content = "你是一个代码助手，请尽最大努力结合我提供的代码，进行分析并提出合理的重构方案。重构的要求如下：\n 1. 只提供重构代码即可，不需要提供任何文字描述，并且不需要```xxxx```这样的引号，我希望你返回一个直接可以放到代码中去且不会报错的文本。\n 2. 如果代码原来有注释，则根据重构之后的代码的情况加上对应的注释，如果原来的代码没有注释，则生成的代码不需要加注释！\n 3. 以上所有要求必须严格遵守。"
 
 [[language-server.lsp-ai.config.actions.parameters.messages]]
 role = "user"
@@ -58,12 +58,11 @@ max_context = 4096
 
 [[language-server.lsp-ai.config.actions.parameters.messages]]
 role = "system"
-content = "你是一个代码助手，需要对我提供的代码进行专业的分析，然后生成分析结果。分析结果的格式要求如下：\n 1. 你需要在我提供的代码中的每个代码块的上方，以注释的方式提供该代码块的解读信息；\n  2. 绝对不要使用```xxxx```这样的引号对任何代码进行包裹，我希望你返回一个直接可以放到代码中去且不会报错的文本！\n 3. 不要丢失或覆盖提供给你的代码！\n 4. 只需要对逻辑复杂的代码块做出解释。"
+content = "你是一个代码助手，需要对我提供的代码进行专业的分析，然后生成分析结果。分析结果的格式要求如下：\n 1. 你需要在我提供的代码中的每个代码块的上方，以注释的方式提供该代码块的解读信息；\n  2. 绝对不要使用```xxxx```这样的引号对任何代码进行包裹，我希望你返回一个直接可以放到代码中去且不会报错的文本！\n 3. 不要丢失或覆盖提供给你的代码！\n 4. 只需要对逻辑复杂的代码块做出解释。\n 5. 以上所有要求必须严格遵守。"
 
 [[language-server.lsp-ai.config.actions.parameters.messages]]
 role = "user"
 content = "{SELECTED_TEXT}"
-
 
 # Modify code
 [[language-server.lsp-ai.config.actions]]
@@ -76,7 +75,20 @@ max_context = 4096
 
 [[language-server.lsp-ai.config.actions.parameters.messages]]
 role = "system"
-content = "你是一个代码助手，需要按照我的要求，对我提供的代码进行修改。具体要求如下：\n 1. 我的修改要求的描述放在代码上方或者下方的注释中。\n  2. 绝对不要使用```xxxx```这样的引号对代码进行包裹，我希望你返回一个直接可以放到代码中去且不会报错的文本！\n 3. 修改之后的代码不需要注释。"
+content = "你是一个代码助手，需要按照我的要求，对我提供的代码进行修改。具体要求如下：\n 1. 我的修改要求的描述放在代码上方或者下方的注释中。\n  2. 绝对不要使用```xxxx```这样的引号对代码进行包裹，我希望你返回一个直接可以放到代码中去且不会报错的文本！\n 3. 修改之后的代码不需要注释。\n 4. 以上所有要求必须严格遵守。"
+
+# Generate code
+[[language-server.lsp-ai.config.actions]]
+model = "model1"
+action_display_name = "Generate"
+
+[language-server.lsp-ai.config.actions.parameters]
+max_tokens = 4096
+max_context = 4096
+
+[[language-server.lsp-ai.config.actions.parameters.messages]]
+role = "system"
+content = "你是一个代码助手，需要按照我的要求，结合我提供的代码上下文，生成准确且专业的代码。具体要求如下：\n 1. 我的代码需求会放在已有代码的下方，并以注释的形式提供。\n  2. 绝对不要使用```xxxx```这样的引号对代码进行包裹，我希望你返回一个直接可以放到代码中去且不会报错的文本！\n 3. 生成的新代码不需要注释。\n 4. 以上所有要求必须严格遵守。"
 
 [[language-server.lsp-ai.config.actions.parameters.messages]]
 role = "user"
@@ -94,7 +106,7 @@ max_tokens = 4096
 
 [[language-server.lsp-ai.config.chat.parameters.messages]]
 role = "system"
-content= "你是一个代码助手，能够根据我提出的要求，对代码或者代码变更进行非常细致且专业的分析。要求如下：\n 1. 如果代码是git diff结果，请细致分析，并提供代码变更可能存在哪些问题，并给出合理的解决方案；\n 2. 如果我是在请你根据代码生成swagger文档，那么生成的swagger文档必须符合openapi 2.0规范，必须使用英文，同时，swagger文档不要有example字段，也不要生成components。"
+content= "你是一个代码助手，能够根据我提出的要求，对代码或者代码变更进行非常细致且专业的分析。要求如下：\n 1. 如果代码是git diff结果，请细致分析，并提供代码变更可能存在哪些问题，并给出合理的解决方案；\n 2. 如果我是在请你根据代码生成swagger文档，那么生成的swagger文档必须符合openapi 2.0规范，必须使用英文，同时，swagger文档不要有example字段，也不要生成components。\n 3. 以上所有要求必须严格遵守。"
 
 [[language]]
 name = "rust"
