@@ -39,6 +39,7 @@ docker() {
     "$DOCKER_PATH/docker" "$@"
 }
 
+# https://github.com/ajeetdsouza/zoxide
 # z for zoxide
 eval "$(zoxide init zsh)"
 
@@ -74,15 +75,19 @@ function zvm_after_init() {
   bindkey "^R" fzf-history-widget
 }
 
+# https://github.com/jeffreytse/zsh-vi-mode
 source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
 
+# https://github.com/zsh-users/zsh-autosuggestions
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 bindkey -M emacs -r "^R"
 bindkey -M viins -r "^R"
+# https://github.com/junegunn/fzf
 source <(fzf --zsh)
 
+# https://github.com/sindresorhus/pure
 fpath+=("$(brew --prefix)/share/zsh/site-functions")
 autoload -U promptinit; promptinit
 # optionally define some options
