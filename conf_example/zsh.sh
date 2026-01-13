@@ -1,3 +1,4 @@
+alias ls="eza"
 alias ga="git add"
 alias gc="git commit"
 alias gp="git push"
