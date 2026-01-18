@@ -264,7 +264,7 @@ main() {
     fi
 
     if [[ "$DRY_RUN" == false ]]; then
-        iflow &
+        iflow xxxxxx &>/dev/null
         IFLOW_PID=$!
         log_info "iflow 进程 PID: $IFLOW_PID"
         log_verbose "等待 ${WAIT_TIME} 秒让 iflow 刷新 token..."
